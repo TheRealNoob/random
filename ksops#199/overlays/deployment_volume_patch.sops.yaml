@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  annotations:
+    kustomize.config.k8s.io/behavior: merge
+spec:
+  template:
+    spec:
+      volumes:
+        - name: secret
+          secret:
+            secretName: hello-world
+      containers:
+        - name: hello-world
+          volumeMounts:
+            - name: secret
+              mountPath: /mnt/secret
